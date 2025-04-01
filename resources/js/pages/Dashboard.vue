@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import axios from 'axios';
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -99,13 +99,9 @@ const submit = async () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="relative flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-6">
-                <!-- Notificação -->
-                <div v-if="notification.show"
-                     class="mb-6 p-4 rounded-lg"
-                     :class="{
-                         'bg-green-100 border border-green-400 text-green-700': notification.type === 'success',
-                         'bg-red-100 border border-red-400 text-red-700': notification.type === 'error'
-                     }">
+                <!-- Notificação de Erro -->
+                <div v-if="notification.show && notification.type === 'error'"
+                     class="mb-6 p-4 rounded-lg bg-red-100 border border-red-400 text-red-700">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-medium">{{ notification.message }}</p>
@@ -118,7 +114,8 @@ const submit = async () => {
                     </div>
                 </div>
 
-                <form @submit.prevent="submit" class="max-w-2xl mx-auto space-y-6">
+                <!-- Formulário -->
+                <form v-if="!notification.url" @submit.prevent="submit" class="max-w-2xl mx-auto space-y-6">
                     <!-- Título -->
                     <div>
                         <label class="block text-sm font-medium mb-1">Título *</label>
@@ -229,31 +226,37 @@ const submit = async () => {
                     </button>
                 </form>
 
-                <!-- Área do Link de Pagamento -->
-                <div v-if="notification.url" class="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <div class="text-center">
-                        <p class="text-sm font-medium mb-2">Link de pagamento gerado:</p>
-                        <div class="flex items-center justify-between gap-2 bg-white dark:bg-gray-700 p-3 rounded-md">
-                            <a
-                                :href="notification.url"
-                                target="_blank"
-                                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 break-all text-sm text-left flex-1"
-                            >
-                                {{ notification.url }}
-                            </a>
-                            <button
-                                @click="navigator.clipboard.writeText(notification.url)"
-                                class="text-gray-500 hover:text-gray-700 dark:text-gray-300"
-                                title="Copiar link"
-                            >
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                </svg>
-                            </button>
+                <!-- Área de Sucesso -->
+                <div v-else class="max-w-2xl mx-auto text-center">
+                    <div class="mb-6 p-4 rounded-lg bg-green-100 border border-green-400 text-green-700">
+                        <p class="font-medium">Pagamento criado com sucesso!</p>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <div class="text-center">
+                            <p class="text-sm font-medium mb-2">Link de pagamento gerado:</p>
+                            <div class="flex items-center justify-between gap-2 bg-white dark:bg-gray-700 p-3 rounded-md">
+                                <a
+                                    :href="notification.url"
+                                    target="_blank"
+                                    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 break-all text-sm text-left flex-1"
+                                >
+                                    {{ notification.url }}
+                                </a>
+                                <button
+                                    @click="navigator.clipboard.writeText(notification.url)"
+                                    class="text-gray-500 hover:text-gray-700 dark:text-gray-300"
+                                    title="Copiar link"
+                                >
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                                Clique no link para acessar a página de pagamento
+                            </p>
                         </div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                            Clique no link para acessar a página de pagamento
-                        </p>
                     </div>
                 </div>
             </div>
