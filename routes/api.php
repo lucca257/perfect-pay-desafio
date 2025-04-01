@@ -8,5 +8,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('transacoes', TransacaoController::class);
+Route::apiResource('transacoes', TransacaoController::class)->only(['store', 'index']);
 Route::post('transacoes/webhook/{provider}', [TransacaoController::class, 'webhook'])->name('transacoes.webhook');
