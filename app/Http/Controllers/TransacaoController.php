@@ -44,13 +44,11 @@ class TransacaoController extends Controller
         return response()->json();
     }
 
-    public function show($id)
+    public function index()
     {
-        // Código para mostrar uma transação específica
-    }
+        $provedor = TransacaoFactory::provider(ProvedoresPagamentoEnum::ASAAS);
+        $transacoes = $provedor->listar();
 
-    public function edit($id)
-    {
-        // Código para mostrar formulário de edição de transação
+        return CriarTransacaoResource::collection($transacoes);
     }
 }

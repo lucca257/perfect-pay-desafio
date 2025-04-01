@@ -29,7 +29,7 @@ class CriarTransacaoRequest extends FormRequest
             'titulo' => ['required', 'string'],
             'descricao' => ['required', 'string'],
             'dataLimite' => ['required', 'date', 'after_or_equal:tomorrow'],
-            'valor' => ['required', 'numeric'],
+            'valor' => ['required', 'numeric', 'min:10'],
             'metodoPagamento' => ['required', Rule::enum(MetodosPagamentoEnum::class)],
             'tipoCobranca' => ['required', Rule::enum(TipoCobrancaEnum::class)],
             'clienteId' => ['nullable', 'integer'],

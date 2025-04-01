@@ -19,4 +19,9 @@ class Transacao extends Model
     {
         return $this->hasMany(HistoricoTransacao::class);
     }
+
+    public function metodo()
+    {
+        return $this->belongsTo(MetodosPagamento::class, 'metodos_pagamento_id');
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services\Transacao;
 
-use App\DTOs\Pagamento\CriarPagamentoDto;
 use App\DTOs\Pagamento\CriarTransacaoDto;
 use App\Enums\ProvedoresPagamentoEnum;
 use App\Enums\StatusTransacaoEnum;
@@ -44,20 +43,27 @@ class AsaasTransacaoProvider implements TransacaoProvider
         return $this->save($resposta->object(), $criarTransacaoDto);
     }
 
-    public function pagar(array $payload)
+    public function pagar(array $payload): Transacao
     {
-        return DB::transaction(function () use($payload) {
+        return DB::transaction(static function () use($payload) {
             $identificador = $payload['payment']['paymentLink'];
             $transacao = Transacao::where('identificador', $identificador)->first();
             $status = StatusTransacaoEnum::APROVADO->value;
 
             $transacao->update(['status_transacao_id' => $status]);
-            $transacao->historicos()->create([
+            $transacao->historico()->create([
                 'status_transacao_id' => $status,
                 'payload' => $payload,
             ]);
             return $transacao;
         });
+    }
+
+    public function listar()
+    {
+        return Transacao::whereHas('metodo.provedores', function ($query) {
+            $query->where('provedor_pagamento_id', ProvedoresPagamentoEnum::ASAAS->value);
+        })->with('historico')->get();
     }
 
     /**

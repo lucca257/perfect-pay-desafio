@@ -12,4 +12,8 @@ interface TransacaoProvider
      * @return Transacao
      */
     public function criar(CriarTransacaoDto $criarTransacaoDto): Transacao;
+
+    public function pagar(array $payload): Transacao;
+
+    public function listar();
 }
