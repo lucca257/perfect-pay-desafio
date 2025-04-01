@@ -2,6 +2,9 @@
 
 Este projeto utiliza **Docker Compose** para facilitar a configuração do ambiente de desenvolvimento. Siga os passos abaixo para configurar e rodar o projeto corretamente.
 
+## Demo do projeto
+[screen-capture (3).webm](https://github.com/user-attachments/assets/5a9e20df-e0a5-4480-b3f9-aebdf83579ca)
+
 ## Pré-requisitos
 
 Certifique-se de ter instalado em sua máquina:
