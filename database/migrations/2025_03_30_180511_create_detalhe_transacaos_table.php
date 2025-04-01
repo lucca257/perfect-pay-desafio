@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StatusTransacao;
 use App\Models\Transacao;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,10 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalhe_pagamento', function (Blueprint $table) {
+        Schema::create('historico_transacao', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Transacao::class);
-            $table->json('dados_pagamento');
+            $table->foreignIdFor(StatusTransacao::class);
+            $table->json('payload');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalhe_pagamento');
+        Schema::dropIfExists('historico_transacao');
     }
 };

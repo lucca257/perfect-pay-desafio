@@ -16,10 +16,11 @@ return new class extends Migration
     {
         Schema::create('transacaos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Cliente::class);
+            $table->string('identificador')->index();
+            $table->foreignIdFor(Cliente::class)->nullable();
             $table->foreignIdFor(MetodosPagamento::class);
             $table->foreignIdFor(StatusTransacao::class);
-            $table->json('payload');
+            $table->json('detalhes');
             $table->timestamps();
         });
     }

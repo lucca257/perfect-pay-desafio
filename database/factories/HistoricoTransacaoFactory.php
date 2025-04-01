@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\HistoricoTransacao;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DetalhePagamento>
+ * @extends Factory<HistoricoTransacao>
  */
-class DetalhePagamentoFactory extends Factory
+class HistoricoTransacaoFactory extends Factory
 {
     /**
      * Define the model's default state.

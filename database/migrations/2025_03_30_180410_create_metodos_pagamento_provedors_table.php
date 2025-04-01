@@ -29,15 +29,15 @@ return new class extends Migration
 
         MetodosPagamentoProvedor::insert([
             [
-                'provedor_pagamento_id' => ProvedoresPagamentoEnum::ASSAS->value,
+                'provedor_pagamento_id' => ProvedoresPagamentoEnum::ASAAS->value,
                 'metodos_pagamento_id' => MetodosPagamentoEnum::BOLETO->value
             ],
             [
-                'provedor_pagamento_id' => ProvedoresPagamentoEnum::ASSAS->value,
+                'provedor_pagamento_id' => ProvedoresPagamentoEnum::ASAAS->value,
                 'metodos_pagamento_id' => MetodosPagamentoEnum::PIX->value
             ],
             [
-                'provedor_pagamento_id' => ProvedoresPagamentoEnum::ASSAS->value,
+                'provedor_pagamento_id' => ProvedoresPagamentoEnum::ASAAS->value,
                 'metodos_pagamento_id' => MetodosPagamentoEnum::CREDITO->value
             ],
         ]);

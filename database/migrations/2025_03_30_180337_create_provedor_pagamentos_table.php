@@ -21,8 +21,8 @@ return new class extends Migration
         });
 
         ProvedorPagamento::create([
-            'id' => ProvedoresPagamentoEnum::ASSAS->value,
-            'nome' => ProvedoresPagamentoEnum::ASSAS
+            'id' => ProvedoresPagamentoEnum::ASAAS->value,
+            'nome' => ProvedoresPagamentoEnum::ASAAS
         ]);
     }
 
